@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/*
+  KOI design tokens. App style: "data terminal" (dark), seed 895773176.
+  Cards sit darker than the ground; figures are monospace and carry their sign in the text;
+  the one accent (koi orange) marks selections as a 1px line and the main data series only.
+  The ink-* scale is kept as names so components read one ramp; every text tier passes 4.5:1
+  on --surface (#131217).
+*/
+@theme {
+  --color-ink-950: #171719; /* ground */
+  --color-ink-900: #131217; /* card surface, darker than ground */
+  --color-ink-850: #1a191e; /* inset well inside a card */
+  --color-ink-800: #212023; /* raised / hover */
+  --color-ink-750: #29282c; /* track */
+  --color-ink-700: #222224; /* structural line */
+  --color-ink-600: #3a3a3e; /* control border */
+  --color-ink-500: #8a8c92; /* meta text, 5.3:1 */
+  --color-ink-400: #8a8c92; /* secondary text */
+  --color-ink-300: #b4b5b9;
+  --color-ink-200: #dcdcde;
+  --color-ink-100: #ffffff;
+
+  --color-koi: #e0784f;          /* the one accent */
+  --color-koi-dim: #e0784f1f;
+  --color-pos: #5fc39c;
+  --color-pos-dim: #1b2828;
+  --color-neg: #e5566f;
+  --color-neg-dim: #2c1a20;
+  --color-warn: #d9a441;
+  --color-warn-dim: #2a2416;
+  --color-info: #bdbdc0;         /* neutral notice; no second hue */
+  --color-info-dim: #212023;
+
+  --font-sans: var(--font-public-sans), Inter, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-ink-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* Every figure: monospace, tabular, digits that stack. */
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.panel {
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-ink-700);
+  border-radius: 6px;
+}
+
+.panel-2 {
+  background: var(--color-ink-850);
+  border-radius: 6px;
+}
+
+/* Small label above a value: sentence case, grey, never tracked capitals. */
+.label {
+  font-size: 12px;
+  color: var(--color-ink-400);
+  font-weight: 400;
+}
+
+/* Loading: flat bars at the real size of the value they stand in for. No shimmer. */
+.shimmer {
+  background: var(--color-ink-800);
+}
+
+::selection {
+  background: var(--color-koi-dim);
+}
+
+/* In the base layer so a component (the search field, whose frame shows focus) can override it. */
+@layer base {
+  :focus-visible {
+    outline: 1px solid var(--color-koi);
+    outline-offset: 2px;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink-600) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
